@@ -1,0 +1,45 @@
+
+name: build-angle
+
+on:
+  schedule:
+    - cron: "0 0 * * 0"
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+
+      - name: checkout
+        uses: actions/checkout@v2          
+
+      - name: build
+        id: build
+        shell: cmd
+        run: call build.cmd
+
+      - name: release
+        id: release
+        if: steps.build.outputs.ANGLE_COMMIT != ''
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.build.outputs.BUILD_DATE }}
+          release_name: ${{ steps.build.outputs.BUILD_DATE }}
+          body: |
+            [angle commit](https://github.com/google/angle/commit/${{ steps.build.outputs.ANGLE_COMMIT }})
+
+      - name: upload
+        id: upload
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: "angle-${{ steps.build.outputs.BUILD_DATE }}.zip"
+          asset_name: "angle-${{ steps.build.outputs.BUILD_DATE }}.zip"
+          asset_content_type: application/zip
