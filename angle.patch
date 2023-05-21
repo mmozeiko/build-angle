@@ -2,12 +2,12 @@ diff --git build/config/win/BUILD.gn build/config/win/BUILD.gn
 index 1e76a54cc..eb16f372f 100644
 --- build/config/win/BUILD.gn
 +++ build/config/win/BUILD.gn
-@@ -501,7 +501,7 @@ config("default_crt") {
+@@ -483,7 +483,7 @@ config("default_crt") {
  # defining _DEBUG.
  config("release_crt") {
    if (is_component_build) {
 -    cflags = [ "/MD" ]
 +    cflags = [ "/MT" ]
  
-     if (use_custom_libcxx) {
-       # On Windows, including libcpmt[d]/msvcprt[d] explicitly links the C++
+     if (rust_prebuilt_stdlib) {
+       rustflags = [ "-Ctarget-feature=-crt-static" ]
