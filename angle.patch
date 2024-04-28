@@ -2,12 +2,12 @@ diff --git build/config/win/BUILD.gn build/config/win/BUILD.gn
 index 1e76a54cc..eb16f372f 100644
 --- build/config/win/BUILD.gn
 +++ build/config/win/BUILD.gn
-@@ -483,7 +483,7 @@ config("default_crt") {
+@@ -509,7 +509,7 @@ config("default_crt") {
  # defining _DEBUG.
  config("release_crt") {
    if (is_component_build) {
 -    cflags = [ "/MD" ]
 +    cflags = [ "/MT" ]
  
-     if (rust_prebuilt_stdlib) {
-       rustflags = [ "-Ctarget-feature=-crt-static" ]
+     # /MD specifies msvcrt.lib as the CRT library, which is the dynamic+release
+     # version. Rust needs to agree, and its default mode is dynamic+release, so
