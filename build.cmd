@@ -30,9 +30,9 @@ if exist "%ProgramFiles%\7-Zip\7z.exe" (
   set SZIP=7za.exe
 )
 
-for /f "usebackq tokens=*" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -version [16.0^,17.0^) -requires Microsoft.VisualStudio.Workload.NativeDesktop -property installationPath`) do set VS=%%i
+for /f "usebackq tokens=*" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -version [17.0^,^) -requires Microsoft.VisualStudio.Workload.NativeDesktop -property installationPath`) do set VS=%%i
 if "!VS!" equ "" (
-  echo ERROR: Visual Studio 2019 installation not found
+  echo ERROR: Visual Studio 2022 installation not found
   exit /b 1
 )  
 
