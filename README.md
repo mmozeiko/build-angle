@@ -1,4 +1,4 @@
-Automatic weekly build of [angle][] OpenGL ES implementation for 64-bit Windows.
+Automatic weekly build of [angle][] OpenGL ES implementation for 64-bit Windows (x64 and arm64).
 
 Download binary build as zip archive from [latest release][] page.
 
