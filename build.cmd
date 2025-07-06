@@ -88,9 +88,9 @@ rem
 
 pushd angle
 
-call gn gen out/%ARCH% --args="target_cpu=""%ARCH%"" angle_build_all=false is_debug=false angle_has_frame_capture=false angle_enable_gl=false angle_enable_vulkan=false angle_enable_wgpu=false angle_enable_d3d9=false angle_enable_null=false" || exit /b 1
+call gn gen out/%ARCH% --args="target_cpu=""%ARCH%"" angle_build_all=false is_debug=false angle_has_frame_capture=false angle_enable_gl=false angle_enable_vulkan=false angle_enable_wgpu=false angle_enable_d3d9=false angle_enable_null=false use_siso=false" || exit /b 1
 "C:\Program Files\Git\usr\bin\sed.exe" -i.bak -e "s/\/MD/\/MT/" build\config\win\BUILD.gn || exit /b 1
-call autoninja -C out/%ARCH% libEGL libGLESv2 libGLESv1_CM || exit /b 1
+call autoninja --offline -C out/%ARCH% libEGL libGLESv2 libGLESv1_CM || exit /b 1
 
 popd
 
