@@ -22,7 +22,7 @@ jobs:
           echo BUILD_DATE=`date +'%Y-%m-%d'` >> ${GITHUB_OUTPUT}
 
   build:
-    runs-on: windows-2022
+    runs-on: windows-2025
     needs: info
     strategy:
       matrix:
@@ -34,6 +34,11 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v6
+
+      - name: Install Windows SDK v10.0.28000
+        shell: cmd
+        run: |
+          "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vs_installer.exe" modify --installPath "C:\Program Files\Microsoft Visual Studio\18\Enterprise" --quiet --force --norestart --add Microsoft.VisualStudio.Component.Windows11SDK.28000
 
       - name: Run Build Script
         id: build
